@@ -56,9 +56,16 @@ $(document).ready(function () {
     }
 
     var countDown = function () {
-        counter--;
-        $("#timer").html("00:" + counter);
+      if (counter > 0) {
+            counter--;
+            $("#timer").html("00:" + counter);
+      } 
 
+    }
+
+    var answerScrren = function () {
+
+        
     }
 
     var timer = function() {setInterval(countDown, 1000)};
@@ -79,9 +86,7 @@ $(document).ready(function () {
      
         $("#d").text(triviaGame[N].answers[3]);
 
-        i++;
-
-        timer();
+        N++;
 
     }
 
@@ -91,6 +96,7 @@ $(document).ready(function () {
 $("#start-button").on("click", function ()  {
 
      Questions();
+     timer();
 
    
 // $(".answer").on("click", function() {
