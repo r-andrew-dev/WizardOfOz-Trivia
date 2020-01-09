@@ -4,6 +4,50 @@
 
 
 h1 {
-    color: red;
+    color: green;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    padding: 3%;
 }
+
+button {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    padding: 3%;
+    text-align: left;
+}
+
+button:hover {
+    color: lightblue;
+}
+
+
+button:active {
+
+    color: lawngreen;
+    outline: none;
+    border: none;
+
+
+}
+
+button:focus {
+    border: none;
+    outline: none;
+}
+
+#container {
+    position: relative;
+    width: 60%;
+    margin: auto;
+}
+
+#question-area {
+    font-size: 36px;
+    font-family: Verdana, Geneva, sans-serif;
+    color: maroon;
+}
+
 
