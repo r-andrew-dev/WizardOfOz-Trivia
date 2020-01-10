@@ -1,12 +1,13 @@
 $(document).ready(function () {
 
-    var counter = 15;
+    var counter = 30;
     var isRunning = false;
     var correct = 0;
     var incorrect = 0;
     var unanswered = 0;
     var N = 1
     var L = 0
+    var x;
 
     var triviaGame = {
 
@@ -22,8 +23,8 @@ $(document).ready(function () {
             question: "What did the real life “Dorothy” say about Frank L. Baum’s book?",
             answers: ['It was the “most flattering” thing someone could have done.', "Nothing at all", 'She was outraged and demanded he change the name of the character.', 'It was the “most enduring” thing someone could have done.'],
             correctAnswer: 1,
-            answerInfo: "Nothing at all - Dorthy was named after Baum’s niece who passed away at just five months old."
-            // picture: <iframe src="https://giphy.com/embed/AldqHdVi1m7Be" width="480" height="448" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/film-wizard-of-oz-woz-AldqHdVi1m7Be">via GIPHY</a></p>,
+            answerInfo: "Nothing at all - Dorthy was named after Baum’s niece who passed away at just five months old.",
+            picture: '<iframe src="https://giphy.com/embed/AldqHdVi1m7Be" width="480" height="448" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/film-wizard-of-oz-woz-AldqHdVi1m7Be">via GIPHY</a></p>',
 
         },
 
@@ -32,7 +33,7 @@ $(document).ready(function () {
             answers: ["pink", "white", "green", "yellow"],
             correctAnswer: 1,
             answerInfo: "In Baum’s book, the city is white. The inhabitants of the emerald city only see it as green because of special green spectacles the Wizard forces them to wear. ",
-            // picture: <iframe src="https://giphy.com/embed/dsSndFyw5bjIk" width="480" height="255" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/wizard-of-oz-emerald-city-dsSndFyw5bjIk">via GIPHY</a></p>,
+            picture: "<iframe src='https://giphy.com/embed/dsSndFyw5bjIk' width='480' height='255' frameBorder='0' class='giphy-embed' allowFullScreen></iframe><p><a href='https://giphy.com/gifs/wizard-of-oz-emerald-city-dsSndFyw5bjIk'>via GIPHY</a></p>",
         },
 
         4: {
@@ -40,7 +41,7 @@ $(document).ready(function () {
             answers: ["Clara Blandick (Auntie Em)", "Judy Garland (Dorthy)", "Billie Burke (Glinda the Good)", "Toto"],
             correctAnswer: 3,
             answerInfo: "Toto - The highest paid actor for the film was Roy Bolger, the scarecrow, making $300 a week",
-            // picture: < iframe src = "https://giphy.com/embed/1y0tWGimBNYHu" width = "480" height = "480" frameBorder = "0" class="giphy-embed" allowFullScreen ></iframe > <p><a href="https://giphy.com/gifs/wizard-of-oz-judy-garland-dorothy-gale-1y0tWGimBNYHu">via GIPHY</a></p>,
+            picture: '<iframe src = "https://giphy.com/embed/1y0tWGimBNYHu" width = "480" height = "480" frameBorder = "0" class="giphy-embed" allowFullScreen ></iframe > <p><a href="https://giphy.com/gifs/wizard-of-oz-judy-garland-dorothy-gale-1y0tWGimBNYHu">via GIPHY</a></p>',
         },
 
         5: {
@@ -48,98 +49,165 @@ $(document).ready(function () {
             answers: ["3", "5", "2", "1"],
             correctAnswer: 1,
             answerInfo: "Five - East: The Wicked Witch of the East --- South: The Wicked Witch of The South and Glinda the Good---North: The Wicked Witch Mombi and The Good Witch of the North (Locasta or Tattypo).",
-            // picture: < iframe src = "https://giphy.com/embed/YHPoWDuPAOREI" width = "480" height = "480" frameBorder = "0" class="giphy-embed" allowFullScreen ></iframe > <p><a href="https://giphy.com/gifs/wizard-of-oz-judy-garland-the-YHPoWDuPAOREI">via GIPHY</a></p>,
+            picture: '<iframe src = "https://giphy.com/embed/YHPoWDuPAOREI" width = "480" height = "480" frameBorder = "0" class="giphy-embed" allowFullScreen ></iframe > <p><a href="https://giphy.com/gifs/wizard-of-oz-judy-garland-the-YHPoWDuPAOREI">via GIPHY</a></p>',
         },
 
-        locations: ["You met the scarecrow!", "The Tinman joined your journey!", "You helped the Cowardly Lion!", "You made it to OZ!", "You've melted the witch!", "You made it back home to Kansas!"]
-
-
-
+        locations: ["You met the scarecrow!", "The Tinman joined your journey!", "You helped the Cowardly Lion!", "You made it to OZ!", "You've melted the witch!", "Congratulations! You made it back home to Kansas!", "Oh no! I'm sorry. You didn't make it back home to Kansas."],
 
     }
+
+
+    var timer = function () { setInterval(countDown, 1000) };
 
     var countDown = function () {
-      if (counter > 0) {
-            counter--;
-            $("#timer").html("00:" + counter);
-      } 
+        if (counter > 0) {
+            counter -= 1
+            $("#timer-space").html(counter);
+            console.log(counter);
+        }
 
-       else {
+        else {
 
-        // answerScreen()
+            clearInterval(timer);
+            answerScreen()
+            console.log(counter);
 
-    }
-
-}
-
-    var answerScreen = function () {
-
-        $("button").hide();
-
-        $("#location-status").text(triviaGame.locations[L]);
-
-        console.log(triviaGame.locations[L]);
-
-        $("#question-area").text(triviaGame[N].answerInfo);
-
-        console.log(triviaGame[N].answerInfo);
-
-        $("#answer-area").html(triviaGame[N].picture);
-        
-        console.log(triviaGame[N].picture);
-
-
-
+        }
 
     }
 
-    var timer = function() {setInterval(countDown, 1000)};
+    // var answerTimer = function () { setInterval(answerCountDown, 1000) };
+
+    // var answerCountDown = function () {
+    //     if (counter > 0) {
+    //         counter -= 1
+    //         console.log(counter);
+    //     }
+
+    //     else {
+    //         clearInterval(answerTimer);
+    //         Questions();
+    //         console.log(counter);
+    //     }
+    // }
 
     var Questions = function () {
 
-        $("#buttons").empty();
+        counter = 30;
+
+        timer();
+
+        $("#start-button").hide();
+
+        $(".answer").show();
+
+        $("#image-div").empty();
 
         $("#location-status").text("Here we go ...");
-        
+
         $("#question-area").text(triviaGame[N].question);
-      
+
         $("#a").text(triviaGame[N].answers[0]);
-     
+
         $("#b").text(triviaGame[N].answers[1]);
-     
+
         $("#c").text(triviaGame[N].answers[2]);
-     
+
         $("#d").text(triviaGame[N].answers[3]);
 
     }
 
+    var answerScreen = function () {
 
-$("#start-button").on("click", function ()  {
+        if (N < 6) {
 
-     Questions();
-     timer();
+            counter = 30;
 
-})
+            // answerTimer();
 
-   
-$(".answer").on("click", function() {
+            $(".answer").hide();
 
-        if (triviaGame[N].answers.indexOf($(this).text()) === triviaGame[N].correctAnswer) {
-            console.log("true")
+            $("#question-area").text(triviaGame[N].answerInfo);
+
+
+            $("#image-div").html(triviaGame[N].picture);
+
+            N++;
+
+            console.log(x);
+
+            if (x === true) {
+
+
+                $("#location-status").text("correct - " + triviaGame.locations[L]);
+                L++;
+
+            }
+
+            else {
+
+                $("#location-status").text("Incorrect - Oh no! You have not moved forward")
+            }
+
         }
 
         else {
-            console.log("false")
+
+            $(".answer").hide();
+
+            $("#image-div").html("<li>Correct: " + correct + "</li><li>Incorrect: " + incorrect + "</li><li>Unanswered: " + unanswered + "</li>")
+
+            if (L = 5) {
+                L++;
+            }
+
+            else {
+
+                L += 2;
+
+            }
+
+            $("#location-status").text(triviaGame.locations[L]);
+
+
+
+
         }
-        
 
-// }
+    }
 
 
-   
+    $("#start-button").on("click", function () {
+
+        Questions();
+        $("timer-space").show();
+
+    })
+
+
+    $(".answer").on("click", function () {
+
+        if (triviaGame[N].answers.indexOf($(this).text()) === triviaGame[N].correctAnswer) {
+
+            correct++;
+            x = true;
+
+        }
+
+        else {
+
+            incorrect++;
+            console.log(incorrect)
+            x = false;
+        }
+
+    })
+
+
+
 })
 
-})
+
 
 
 

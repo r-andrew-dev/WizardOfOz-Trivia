@@ -50,4 +50,15 @@ button:focus {
     color: maroon;
 }
 
+#timer-space {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    padding: 20px;
+    /* background-color: lightskyblue; */
+}
+
 
