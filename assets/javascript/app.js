@@ -6,6 +6,7 @@ $(document).ready(function () {
     var incorrect = 0;
     var unanswered = 0;
     var N = 1
+    var L = 0
 
     var triviaGame = {
 
@@ -14,7 +15,7 @@ $(document).ready(function () {
             answers: ["Broken leg", "Puncture wound from a piece of the flying monkey's costume", "Bad Burns", "Bitten by a dog"],
             correctAnswer: 2,
             answerInfo: "Bad Burns - Margaret Hamilton suffered severe burns while filming her “puff of smoke” scene and the cameras kept on filming. As Hamilton went below the stage, she was trapped in the elevator with the fire. Dorthy and Glinda kept acting above her none the wiser about what was going on below. ",
-            // picture: <iframe src="https://giphy.com/embed/ihBXdfRh5uJOM" width="480" height="356" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/ihBXdfRh5uJOM">via GIPHY</a></p>,
+            picture: "<iframe src = 'https://giphy.com/embed/ihBXdfRh5uJOM' width = '480' height = '356' frameBorder = '0' class='giphy-embed' allowFullScreen ></iframe > <p><a href='https://giphy.com/gifs/ihBXdfRh5uJOM'>via GIPHY</a></p>",
         },
 
         2: {
@@ -50,6 +51,8 @@ $(document).ready(function () {
             // picture: < iframe src = "https://giphy.com/embed/YHPoWDuPAOREI" width = "480" height = "480" frameBorder = "0" class="giphy-embed" allowFullScreen ></iframe > <p><a href="https://giphy.com/gifs/wizard-of-oz-judy-garland-the-YHPoWDuPAOREI">via GIPHY</a></p>,
         },
 
+        locations: ["You met the scarecrow!", "The Tinman joined your journey!", "You helped the Cowardly Lion!", "You made it to OZ!", "You've melted the witch!", "You made it back home to Kansas!"]
+
 
 
 
@@ -61,11 +64,33 @@ $(document).ready(function () {
             $("#timer").html("00:" + counter);
       } 
 
+       else {
+
+        // answerScreen()
+
     }
 
-    var answerScrren = function () {
+}
 
+    var answerScreen = function () {
+
+        $("button").hide();
+
+        $("#location-status").text(triviaGame.locations[L]);
+
+        console.log(triviaGame.locations[L]);
+
+        $("#question-area").text(triviaGame[N].answerInfo);
+
+        console.log(triviaGame[N].answerInfo);
+
+        $("#answer-area").html(triviaGame[N].picture);
         
+        console.log(triviaGame[N].picture);
+
+
+
+
     }
 
     var timer = function() {setInterval(countDown, 1000)};
@@ -76,7 +101,7 @@ $(document).ready(function () {
 
         $("#location-status").text("Here we go ...");
         
-        $("#question-area").append(triviaGame[N].question);
+        $("#question-area").text(triviaGame[N].question);
       
         $("#a").text(triviaGame[N].answers[0]);
      
@@ -86,11 +111,7 @@ $(document).ready(function () {
      
         $("#d").text(triviaGame[N].answers[3]);
 
-        N++;
-
     }
-
-
 
 
 $("#start-button").on("click", function ()  {
@@ -98,16 +119,29 @@ $("#start-button").on("click", function ()  {
      Questions();
      timer();
 
+})
+
    
-// $(".answer").on("click", function() {
+$(".answer").on("click", function() {
 
-// //    clearInterval(timer, 3000);
+        if (triviaGame[N].answers.indexOf($(this).text()) === triviaGame[N].correctAnswer) {
+            console.log("true")
+        }
 
-//     if ($(this).hasClass("correct")) {
+        else {
+            console.log("false")
+        }
+        
+
+// }
+
+
    
 })
 
 })
+
+
 
 
 // GIF 1
