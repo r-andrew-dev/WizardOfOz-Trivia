@@ -61,4 +61,7 @@ button:focus {
     /* background-color: lightskyblue; */
 }
 
+.wrong {
+    color: red;
+}
 

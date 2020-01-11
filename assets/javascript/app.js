@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var counter = 30;
+    var counter = 10;
     var isRunning = false;
     var correct = 0;
     var incorrect = 0;
@@ -93,9 +93,13 @@ $(document).ready(function () {
 
     var Questions = function () {
 
-        counter = 30;
+        counter = 10;
 
         timer();
+
+        $("#location-status").removeClass("wrong");
+      
+        $("#image-div").empty();
 
         $("#start-button").hide();
 
@@ -145,8 +149,9 @@ $(document).ready(function () {
             }
 
             else {
-
-                $("#location-status").text("Incorrect - Oh no! You have not moved forward")
+                $("#location-status").addClass("wrong");
+                $("#location-status").text("Incorrect - Oh no! You have not moved forward");
+                // $("#location-status").removeClass(".wrong");
             }
 
         }
@@ -178,7 +183,7 @@ $(document).ready(function () {
 
 
     $("#start-button").on("click", function () {
-
+        isRunning = true; 
         Questions();
         $("timer-space").show();
 
