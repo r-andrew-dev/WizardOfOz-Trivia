@@ -1,7 +1,7 @@
 var isRunnning = false;
 var timerRunning = false;
 var answersRunning = false;
-var counter = 10;
+var counter = 3;
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
@@ -9,6 +9,8 @@ var N = 0;
 var L = 0;
 var interval; 
 var timer;
+var timeElapsed = 0
+var divClone;
 
 var triviaGame = {
 
@@ -61,6 +63,7 @@ function timer() {
 
     clearInterval(interval);
     interval = setInterval(function() {
+        timeElapsed = timeElapsed + counter;
         counter--;
         $("#timer-space").text(counter);
         timerRunning = true;
@@ -98,7 +101,8 @@ initializeGame = function () {
 
         else {
 
-            $(divClone.clone(true)).appendTo("body");
+            $("body").html(divClone.clone(true));
+            console.log("appended")
 
         }
 
@@ -121,9 +125,11 @@ Questions = function() {
             
         else{    
             
+            answer = false; 
+
             N++;
 
-            counter = 10;
+            counter = 3;
 
             timer();
 
@@ -149,6 +155,7 @@ Questions = function() {
 
         }
 
+
     }
 
 answerScreen = function() {
@@ -159,7 +166,7 @@ answerScreen = function() {
 
     timerRunning = false;
     answersRunning = true;
-    counter = 7
+    counter = 3
     
     console.log(timerRunning);
     
@@ -170,7 +177,7 @@ answerScreen = function() {
 
             isRunning = false;
 
-            $("#image-div").html("<li>Correct: " + correct + "</li><li>Incorrect: " + incorrect + "</li><li>Unanswered: " + unanswered + "</li><button class='reset'>Play again?</button>");
+            $("#image-div").html("<li>Correct: " + correct + "</li><li>Incorrect: " + incorrect + "</li><li>Unanswered: " + (5 - incorrect - correct) + "</li><button class='reset'>Play again?</button>");
 
             if (L < 5) {
                 
@@ -225,18 +232,30 @@ answerScreen = function() {
     }
 
 
-    $("#start-button").one("click", function () {
+    $("#start-button").on("click", function () {
 
-        // creating a clone of the game after click listener has been added. 
-        divClone = $("div.container").clone(true);
-
-
+        // creating a clone of the game after click listener has been added.
         if (isRunnning === true) {
             return;
         }
 
         else {
 
+            isRunnning = false;
+            timerRunning = false;
+            answersRunning = false;
+            counter = 3;
+            correct = 0;
+            incorrect = 0;
+            unanswered = 0;
+            N = 0;
+            L = 0;
+            interval; 
+            timer;
+            timeElapsed = 0
+
+            divClone = $("#container").clone(true);
+            $(".answer").show();
             isRunning = true;
             Questions();
         }
@@ -254,18 +273,18 @@ answerScreen = function() {
 
     $(".answer").on("click", function () {
 
-        if (triviaGame[N].answers.indexOf($(this).text()) === triviaGame[N].correctAnswer) {
+        if (triviaGame[N].answers.indexOf($(this).text()) != triviaGame[N].correctAnswer && triviaGame[N].answers.indexOf($(this).text()) > -1 ) {
 
-            correct++;
-            answer = true;
+            incorrect++;
+            answer = false;
             return;
 
         }
 
         else {
 
-            incorrect++;
-            answer = false;
+            correct++;
+            answer = true;
             return;
         }
 
