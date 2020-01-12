@@ -1,13 +1,14 @@
-var counter = 15;
-var answerCounter = 15;
 var isRunnning = false;
 var timerRunning = false;
+var answersRunning = false;
+var counter = 10;
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
 var N = 0;
 var L = 0;
-var answer;
+var interval; 
+var timer;
 
 var triviaGame = {
 
@@ -56,6 +57,33 @@ var triviaGame = {
 
 }
 
+function timer() {
+    clearInterval(interval);
+    interval = setInterval(function() {
+        counter--;
+        $("#timer-space").text(counter);
+        timerRunning = true;
+ 
+         if (counter === 0) {
+            console.log("Done");
+            clearInterval(interval);
+            console.log(counter);
+            timerRunning = false;
+            $("#timer-space").text(" ");
+            
+            if (answersRunning === true) {
+                Questions()
+                answersRunning = false;
+            }
+
+            else {
+                answerScreen()
+            }
+    }
+    console.log(counter);
+
+}, 1000); }
+
 
 $(document).ready(function () {
 
@@ -76,45 +104,27 @@ $(document).ready(function () {
 //     }
 
 
-
-    var timer = function () { setInterval(countDown, 1000) };
-
-    var countDown = function () {
-        
-        if (counter < 1 ) {
-
-            answerScreen();
-            return;
-        }
-
-        else {
-
-            timerRunning = true;
-            counter -= 1;
-            $("#timer-space").html(counter);
-
-        }
-
-    }
-
     // var answerTimer = function () { setInterval(answerCountDown, 1000) };
 
     // var answerCountDown = function () {
-    //     if (answerCounter > 0) {
-    //         answerCounter -= 1;
-    //     }
+    //     if (answerCounter === 0) {
 
-    //     else {
     //         timerRunning = false;
     //         Questions();
     //         clearInterval(answerTimer);
     //         console.log(counter);
+    //         return;
+    //     }
+
+    //     else {
+    //         answerCounter -= 1;
+    //         timerRunning = true;
+    //         return;
     //     }
     // }
 
-    var Questions = function () {
-
-        clearInterval(timer);
+Questions = function() {
+        
         N++;
 
         if (timerRunning === true) {
@@ -125,7 +135,7 @@ $(document).ready(function () {
 
         else {
 
-            counter = 15;
+            counter = 10;
 
             timer();
 
@@ -148,20 +158,22 @@ $(document).ready(function () {
             $("#c").text(triviaGame[N].answers[2]);
 
             $("#d").text(triviaGame[N].answers[3]);
+
         }
 
     }
 
-var answerScreen = function () {
+answerScreen = function() {
 
-    clearInterval(timer);
     console.log(counter)
     console.log(N)
     console.log(L)
 
-    $("timer-space").text(" ");
     timerRunning = false;
-    answerCounter = 15;
+    answersRunning = true;
+    counter = 7
+    
+    console.log(timerRunning);
     
     if (N === 6) {
 
@@ -169,7 +181,7 @@ var answerScreen = function () {
             $(".answer").hide();
 
             $("#image-div").html("<li>Correct: " + correct + "</li><li>Incorrect: " + incorrect + "</li><li>Unanswered: " + unanswered + "</li><button class='reset'>Play again?</button>");
-        
+
             if (L < 5) {
                 
                 L += 2;
@@ -194,7 +206,7 @@ var answerScreen = function () {
 
             else {
 
-                // answerTimer();
+                timer();
 
                 $(".answer").hide();
 
@@ -236,10 +248,9 @@ var answerScreen = function () {
         }
 
         else {
+
             isRunning = true;
             Questions();
-            $("timer-space").html(counter);
-
         }
 
     })
@@ -253,22 +264,24 @@ var answerScreen = function () {
     // })
 
 
-    // $(".answer").on("click", function () {
+    $(".answer").on("click", function () {
 
-    //     if (triviaGame[N].answers.indexOf($(this).text()) === triviaGame[N].correctAnswer) {
+        if (triviaGame[N].answers.indexOf($(this).text()) === triviaGame[N].correctAnswer) {
 
-    //         correct++;
-    //         answer = true;
+            correct++;
+            answer = true;
+            return;
 
-    //     }
+        }
 
-    //     else {
+        else {
 
-    //         incorrect++;
-    //         answer = false;
-    //     }
+            incorrect++;
+            answer = false;
+            return;
+        }
 
-    // })
+    })
 
 
     })
