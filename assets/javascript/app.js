@@ -90,39 +90,20 @@ $(document).ready(function () {
 
 
 
-//    var initializeGame = function () {
+initializeGame = function () {
 
-//         if (isRunnning === true) {
-//             return false;
-//         }
+        if (isRunnning === true) {
+            return false;
+        }
 
-//         else {
+        else {
 
-//             $(divClone.clone(true)).appendTo("body");
+            $(divClone.clone(true)).appendTo("body");
 
-//         }
+        }
 
-//     }
+    }
 
-
-    // var answerTimer = function () { setInterval(answerCountDown, 1000) };
-
-    // var answerCountDown = function () {
-    //     if (answerCounter === 0) {
-
-    //         timerRunning = false;
-    //         Questions();
-    //         clearInterval(answerTimer);
-    //         console.log(counter);
-    //         return;
-    //     }
-
-    //     else {
-    //         answerCounter -= 1;
-    //         timerRunning = true;
-    //         return;
-    //     }
-    // }
 
 Questions = function() {
 
@@ -184,24 +165,23 @@ answerScreen = function() {
     
     if (N === 6) {
 
-            $("question-area").empty();
+            $("#question-area").text(" ");
             $(".answer").hide();
+
+            isRunning = false;
 
             $("#image-div").html("<li>Correct: " + correct + "</li><li>Incorrect: " + incorrect + "</li><li>Unanswered: " + unanswered + "</li><button class='reset'>Play again?</button>");
 
             if (L < 5) {
                 
-                L += 2;
+                $("#location-status").text(triviaGame.locations[6]);
             }
 
             else {
 
-                L++;
+                $("#location-status").text(triviaGame.locations[5]);
 
             }
-
-            $("#location-status").text(triviaGame.locations[L]);
-            return;
 
         } else {
 
@@ -263,13 +243,13 @@ answerScreen = function() {
 
     })
 
-    // $("#image-div").on("click", ".reset", function () {
+    $("#image-div").on("click", ".reset", function () {
 
-    //     isRunning = false;
-    //     initializeGame();
+        console.log(this);
+        initializeGame();
 
 
-    // })
+    })
 
 
     $(".answer").on("click", function () {
