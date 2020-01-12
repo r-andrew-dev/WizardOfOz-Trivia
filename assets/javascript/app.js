@@ -58,6 +58,7 @@ var triviaGame = {
 }
 
 function timer() {
+
     clearInterval(interval);
     interval = setInterval(function() {
         counter--;
@@ -124,8 +125,6 @@ $(document).ready(function () {
     // }
 
 Questions = function() {
-        
-        N++;
 
         if (timerRunning === true) {
 
@@ -133,7 +132,15 @@ Questions = function() {
 
         }
 
-        else {
+        else if (N === 5) {
+
+            N++
+            answerScreen()
+        }
+            
+        else{    
+            
+            N++;
 
             counter = 10;
 
@@ -230,6 +237,7 @@ answerScreen = function() {
                     L++;
                     return;
                 }
+            
             }
 
         }
