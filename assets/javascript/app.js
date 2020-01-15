@@ -1,7 +1,7 @@
 var isRunnning = false;
 var timerRunning = false;
 var answersRunning = false;
-var counter = 3;
+var counter = 11;
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
@@ -9,7 +9,6 @@ var N = 0;
 var L = 0;
 var interval; 
 var timer;
-var timeElapsed = 0
 var divClone;
 
 var triviaGame = {
@@ -63,17 +62,14 @@ function timer() {
 
     clearInterval(interval);
     interval = setInterval(function() {
-        timeElapsed = timeElapsed + counter;
-        counter--;
-        $("#timer-space").text(counter);
+    counter--;
+    $("#timer-space").text(counter)
         timerRunning = true;
  
          if (counter === 0) {
-            console.log("Done");
             clearInterval(interval);
-            console.log(counter);
             timerRunning = false;
-            $("#timer-space").text(" ");
+            $("#timer-space").hide();
             
             if (answersRunning === true) {
                 Questions()
@@ -84,14 +80,11 @@ function timer() {
                 answerScreen()
             }
     }
-    console.log(counter);
 
 }, 1000); }
 
 
 $(document).ready(function () {
-
-
 
 initializeGame = function () {
 
@@ -102,12 +95,10 @@ initializeGame = function () {
         else {
 
             $("body").html(divClone.clone(true));
-            console.log("appended")
 
         }
 
     }
-
 
 Questions = function() {
 
@@ -129,9 +120,11 @@ Questions = function() {
 
             N++;
 
-            counter = 3;
+            counter = 11;
 
             timer();
+
+            $("#timer-space").show();
 
             $("#location-status").removeClass("wrong");
 
@@ -155,20 +148,13 @@ Questions = function() {
 
         }
 
-
     }
 
 answerScreen = function() {
 
-    console.log(counter)
-    console.log(N)
-    console.log(L)
-
     timerRunning = false;
     answersRunning = true;
-    counter = 3
-    
-    console.log(timerRunning);
+    counter = 11
     
     if (N === 6) {
 
@@ -244,7 +230,7 @@ answerScreen = function() {
             isRunnning = false;
             timerRunning = false;
             answersRunning = false;
-            counter = 3;
+            counter = 11;
             correct = 0;
             incorrect = 0;
             unanswered = 0;
@@ -252,7 +238,6 @@ answerScreen = function() {
             L = 0;
             interval; 
             timer;
-            timeElapsed = 0
 
             divClone = $("#container").clone(true);
             $(".answer").show();
@@ -264,9 +249,7 @@ answerScreen = function() {
 
     $("#image-div").on("click", ".reset", function () {
 
-        console.log(this);
         initializeGame();
-
 
     })
 
